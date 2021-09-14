@@ -240,10 +240,202 @@ const cloneMenu = [...lunchMenuIdeas];
 cloneMenu.push('Red Hot Chilly Peppers');
 console.log(cloneMenu);
 
-const wrongThing = {thing: 'wrong'};
-// const whatHappens = [].concat(numbers, wrongThing);
+const wrongThing = { thing: 'wrong' };
+// выдаст ошибку в этих 2 случаях так как объект не итерабельный и не развернётся в массив.
+// объект перебирается по ключам , а ключи - строки
+const whatHappens = [].concat(numbers, wrongThing);
 // const whatHappens = [...numbers, ...wrongThing];
-// console.log(whatHappens);
+console.log(whatHappens);
 
 numbers.push(wrongThing);
 console.log(numbers);
+
+// удаляем или заменяем любой элемент массива по значению элемента
+const breakfastMenuIdeas = ['Buckwheat Pancakes'];
+const dinnerMenuIdeas = ['Glazed Salmon', 'Meatloaf', 'American Cheeseburger'];
+
+const menuIdeas = [
+  ...breakfastMenuIdeas,
+  'Harvest Salad',
+  'Southern Fried Chicken',
+  ...dinnerMenuIdeas,
+];
+
+// const harvestSaladIndex = menuIdeas.findIndex(
+//   (item) => item === 'Harvest Salad'
+// );
+// console.log(harvestSaladIndex);
+
+// const newMenu = [
+//   ...menuIdeas.slice(0, harvestSaladIndex),
+//   ...menuIdeas.slice(harvestSaladIndex + 1)
+// ]
+// console.log(newMenu);
+
+const meatloafIndx = menuIdeas.findIndex(item => item === 'Meatloaf');
+console.log(meatloafIndx);
+const updateMenu = [
+  ...menuIdeas.slice(0, meatloafIndx),
+  'Yami',
+  ...menuIdeas.slice(meatloafIndx + 1)
+]
+console.log(updateMenu);
+
+// destructuring новый способ присвоить элементам массива имя переменной
+const finalMenuItems = [
+  "American Cheeseburger",
+  "Southern Fried Chicken",
+  "Glazed Salmon"
+];
+
+let [first, second] = finalMenuItems;
+console.log('before', { first },{ second });
+// меняем местами имена переменных и показываем их как объекты
+[second, first] = [first, second];
+console.log('after', { first },{ second });
+
+// пусть первый элемент массива - первый подаётся к столу , ОСТАЛЬНЫЕ элементы позже в отдельном подмассиве
+let [winner, ...restOrder] = finalMenuItems;
+// выведем в  виде объекта
+console.log({winner, restOrder});
+
+
+const fishDishes = ['Salmon Rillettes', 'Grilled Tuna Provencal', 'Fish and Chips']
+const meatDishes = ['Lasagna', 'Spaghetti', 'Satay Chicken Skewers']
+
+// Modify these four variables first
+ let chefsFishDishes = fishDishes.filter(elem => elem[0].toLowerCase() === 's');
+ console.log(chefsFishDishes);
+let regularFishDishes = fishDishes.filter(elem => elem[0].toLowerCase() !== 's');
+console.log(regularFishDishes);
+
+let chefsMeatDishes = meatDishes.filter(elem => elem[0].toLowerCase() === 's');
+console.log(chefsMeatDishes);
+let regularMeatDishes = meatDishes.filter(elem => elem[0].toLowerCase() !== 's');
+console.log(regularMeatDishes);
+let str = 'wrong';
+
+// Finally, use the spread operator to create these two arrays as well
+let chefsDishes = [...chefsFishDishes, ...chefsMeatDishes, ...str];
+console.log(chefsDishes);
+let regularDishes = [].concat(regularFishDishes, regularMeatDishes, str);
+console.log(regularDishes);
+
+// копируем массив
+// const [...cloneFishDishes] = fishDishes;
+// console.log(cloneFishDishes);
+
+// метод итерации по объекту  for in loop- ключи в объекте это строки, проход по строкам
+const obj = { one: 1, two: 2 };
+for (const key in obj) {
+  console.log('key', key);
+  console.log('value', obj[key]);
+}
+// объект особо не богат на методы, так что для работы удобно конвертировать объект в массив
+// 3 способа конвертации
+// Object.keys(), Object.values(), Object.entries()
+// получим массив ключей
+const arrObjKeys = Object.keys(obj);
+console.log(arrObjKeys);
+const keyExist = Object.keys(obj).includes('two');
+console.log(keyExist);
+// если мы хотим получить значения по ключу юзаем map()
+const mapValues = Object.keys(obj).map(key => obj[key]);
+console.log(mapValues)
+
+
+// получим массив значений без map()
+const arrObjValues = Object.values(obj);
+console.log(arrObjValues);
+
+const monthlyExpenses = {
+  food: 400,
+  rent: 1700,
+  insurance: 550,
+  internet: 49,
+  phone: 95
+};
+
+const monthlySum = Object.values(monthlyExpenses).reduce((acc, value) => acc + value, 0);
+console.log(monthlySum);
+
+// праобразуем объект в массив массивов
+console.log(Object.entries(obj));
+
+const users = {
+  '2345234': {
+    name: "John",
+    age: 29
+  },
+  '8798129': {
+    name: "Jane",
+    age: 42
+  },
+  '1092384': {
+    name: "Fred",
+    age: 17
+  }
+};
+
+const usersOver20 = Object.entries(users).reduce((acc, [id, user]) => {
+  if (user.age > 20) {
+    acc.push({ ...user, id });
+  }
+  return acc;
+}, []);
+console.log(usersOver20);
+
+// набор уникальных вхождений Set() для итерабельных
+const numbersSet = new Set([1, 1, 2]);
+console.log(numbersSet);
+console.log('numbersSet size', numbersSet.size);
+
+for (const num of numbersSet) {
+  console.log(num);
+}
+
+// сэт принадлежит типу объект и легко конвертируется в массив
+const customerDishes = [
+  "Chicken Wings",
+  "Fish Sandwich",
+  "Beef Stroganoff",
+  "Grilled Cheese",
+  "Blue Cheese Salad",
+  "Chicken Wings",
+  "Reuben Sandwich",
+  "Grilled Cheese",
+  "Fish Sandwich",
+  "Chicken Pot Pie",
+  "Fish Sandwich",
+  "Beef Stroganoff"
+];
+
+const uniqueDishes = [...new Set(customerDishes)];
+console.log(uniqueDishes);
+
+for (let i = 0; i < numbers.length; i++) {
+  console.log(numbers[i]);
+}
+
+numbers.forEach(number => {
+  console.log(number);
+});
+
+/*
+- map()
+- filter()
+- reduce()
+- some() / every()
+- find() / findIndex()
+- forEach()
+
+Plus:
+
+- slice()
+- concat()
+- includes()
+- array spread operator
+*/
+
+
+
