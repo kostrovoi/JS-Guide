@@ -436,6 +436,10 @@ Plus:
 - includes()
 - array spread operator
 */
+const userMessages = [ {id: 1, text: 'Hello', userId: 1}, {id: 2, text: 'Hello', userId: 2}];
+const manyUsers = [ {id: 1, userName: 'Viktor'}, {id: 2, userName: 'Vasilisa'}];
+
+// const messagesWithUserNames =
 
 
 
